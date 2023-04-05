@@ -56,19 +56,16 @@ public class Main {
     if (leaf == null)
       return 0;
 
-    int left = 0;
-    if (leaf.left != null) {
-      left = maxPathSum(leaf.left);
-    }
+    int left = maxPathSum(leaf.left);
+    int right = maxPathSum(leaf.right);
+    System.out.println("val: " + leaf.val + ", left: " + left + ", right: " + right);
 
-    int right = 0;
-    if (leaf.right != null)
-      right = maxPathSum(leaf.right);
+    int first = Math.max(0, Math.max(left, right) + leaf.val);
+    System.out.println("first: " + first);
 
-    left = Math.max(left, left + leaf.val);
-    right = Math.max(right, right + leaf.val);
-    //System.out.println("left: " + left + ", right: " + right);
+    int second = Math.max(first, left + right + leaf.val);
+    System.out.println("second: " + second);
 
-    return Math.max(left, right);
+    return Math.max(first, second);
   }
 }
