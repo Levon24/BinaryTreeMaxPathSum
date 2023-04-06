@@ -45,11 +45,16 @@ public class Main {
   static TreeNode p20 = new TreeNode(20, p15, p7);
   static TreeNode p9 = new TreeNode(9, null, null);
   static TreeNode root = new TreeNode(-10, p9, p20);
+  static int maxCross = 0;
 
   public static void main(String[] args) {
     System.out.println("Hello world!");
 
-    System.out.println("Sum: " + maxPathSum(root));
+    int sum = maxPathSum(root);
+    if (maxCross > sum)
+      sum = maxCross;
+
+    System.out.println("Sum: " + sum);
   }
 
   public static int maxPathSum(TreeNode leaf) {
@@ -60,12 +65,14 @@ public class Main {
     int right = maxPathSum(leaf.right);
     System.out.println("val: " + leaf.val + ", left: " + left + ", right: " + right);
 
-    int first = Math.max(0, Math.max(left, right) + leaf.val);
-    System.out.println("first: " + first);
+    int up = Math.max(0, Math.max(left, right) + leaf.val);
+    System.out.println("up: " + up);
 
-    int second = Math.max(first, left + right + leaf.val);
-    System.out.println("second: " + second);
+    int cross = left + right + leaf.val;
+    if (cross > maxCross)
+      maxCross = cross;
+    System.out.println("cross: " + cross);
 
-    return Math.max(first, second);
+    return up;
   }
 }
